@@ -35,3 +35,34 @@ ros2 run demo_nodes_cpp talker
 
 
 
+### Jun 26th 2025
+
+install VRX environment success with the following processes. Official one's doesn't work. 
+
+so use the following steps.
+
+```
+sudo apt update
+sudo apt install ros-jazzy-ros-gz
+```
+
+then 
+
+```
+source /opt/ros/jazzy/setup.bash
+```
+
+since i failed to install the package so cleaning the previos directory. 
+
+```
+cd ~/vrx_ws # Or wherever your VRX workspace is located
+rm -rf build install log
+```
+
+then build again 
+
+```
+colcon build --merge-install
+```
+
+
