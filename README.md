@@ -5,6 +5,10 @@
     1. successfuly install MOOS-IvP & ROS2 jazzy on ubuntu 24.04 LTS
     1. ROS2 install with the following instruction: 
 ```
+sudo apt install terminator
+```
+
+```
 sudo apt update && sudo apt install software-properties-common
 sudo add-apt-repository universe
 sudo apt update
