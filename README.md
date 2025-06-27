@@ -59,7 +59,29 @@ then
 source /opt/ros/jazzy/setup.bash
 ```
 
-since i failed to install the package so cleaning the previos directory. 
+```
+sudo apt install python3-sdformat14 ros-jazzy-xacro
+```
+
+```
+mkdir -p ~/vrx_ws/src
+cd ~/vrx_ws/src
+git clone https://github.com/osrf/vrx.git
+source /opt/ros/jazzy/setup.bash
+cd ~/vrx_ws
+colcon build --merge-install
+. install/setup.bash
+```
+test run!!
+```
+ros2 launch vrx_gz competition.launch.py world:=sydney_regatta
+```
+
+
+
+
+
+since i have failed to install the package so cleaning the previos directory. 
 
 ```
 cd ~/vrx_ws # Or wherever your VRX workspace is located
