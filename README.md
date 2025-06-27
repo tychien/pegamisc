@@ -72,6 +72,18 @@ cd ~/vrx_ws
 colcon build --merge-install
 . install/setup.bash
 ```
+Great! Let's install Gazebo
+```
+sudo apt-get update
+sudo apt-get install curl lsb-release gnupg
+sudo curl https://packages.osrfoundation.org/gazebo.gpg --output /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/gazebo-stable.list > /dev/null
+sudo apt-get update
+sudo apt-get install gz-harmonic
+sudo apt install python3-sdformat14 ros-jazzy-xacro
+```
+
+
 test run!!
 ```
 ros2 launch vrx_gz competition.launch.py world:=sydney_regatta
