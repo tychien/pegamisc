@@ -36,8 +36,11 @@ test the ROS2
 ```
 ros2 run demo_nodes_cpp talker
 ```
-
-
+in another terminal: 
+```
+source .bashrc
+ros2 run demo_nodes_py listener
+```
 
 ### Jun 26th 2025
 
