@@ -9,6 +9,9 @@ int main(int argc, char* argv[])
     int input = atoi(argv[1]);
     long int result= 1;
     
+    if argc !=2{
+        cout << "Usage:factorial_cmdargs NUMBER" << endl;
+    }
     while (input >0) {
         result = result * input; 
         input = input -1;
