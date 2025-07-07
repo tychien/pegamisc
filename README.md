@@ -108,4 +108,35 @@ colcon build --merge-install
 
 
 sudo openconnect sslvpn.pegatroncorp.com --user='pega\tim_chien' --protocal=gp
-    
+
+
+
+## 7/3
+
+mediatek 700/720 
+https://mediatek.gitlab.io/aiot/doc/aiot-dev-guide/master/qsg/qsg_genio_700_intro.html
+MakeFIle sharescript
+csi / dsi - camera / display
+td100 docker to build on td100 
+
+docker export through adb uart  wifi rj45 tftb
+
+ros - hunble docker support
+
+
+buildroot / compiler yocto      
+
+
+
+## 7/7 
+
+Integration ASR to Android App
+Interger whisper / Llama
+
+Grizzly_kiosk - drinks machine 
+
+
+Reycom - RC4 
+
+Reycom - IQ9 - Linux  
+
