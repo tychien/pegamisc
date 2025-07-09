@@ -107,7 +107,7 @@ colcon build --merge-install
 ```
 
 
-sudo openconnect sslvpn.pegatroncorp.com --user='pega\tim_chien' --protocal=gp
+sudo openconnect sslvpn.pegatroncorp.com --user='pega\tim_chien' --protocol=gp
 
 
 
