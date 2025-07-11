@@ -140,3 +140,17 @@ Reycom - RC4
 
 Reycom - IQ9 - Linux  
 
+
+Genio720 - MT8391  NFF 
+700 - 8390 - 
+
+1. U3P0 = usb 3.0 port 0
+1. 8 first dwg lock down Sep. first coming Nov. Jan. 
+1. CAN BUS -> DB9   voltage hi low gnd
+1. ADB port 看console 用uart
+
+SACG - MTK 的代理商 品佳
+
+
+tool chain compiler
+ OPENGL, OPENCV OPENCL 
