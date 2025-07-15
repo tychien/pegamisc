@@ -195,4 +195,42 @@ docker buildx build --platform linux/arm64 -t ros2-raspi-dev:latest --load .
 
 因此，我們得出結論，在 x86 上透過 QEMU 進行這種複雜的交叉編譯，對於 libc-bin 這種核心套件而言，穩定性可能無法保證。這也是為什麼我們最終建議直接在目標 ARM664 硬體 (Raspberry Pi) 上進行原生建置，以避免模擬器帶來的問題。
 
+Ref. Error Code
+```
+141.3 Setting up cmake (3.22.1-1ubuntu1.22.04.2) ...
+141.3 Setting up g++-11 (11.4.0-1ubuntu1~22.04) ...
+141.4 Setting up dpkg-dev (1.21.1ubuntu2.3) ...
+141.4 Setting up liberror-perl (0.17029-1) ...
+141.4 Setting up git (1:2.34.1-1ubuntu1.15) ...
+141.6 Setting up g++ (4:11.2.0-1ubuntu1) ...
+141.9 update-alternatives: using /usr/bin/g++ to provide /usr/bin/c++ (c++) in auto mode
+141.9 update-alternatives: warning: skip creation of /usr/share/man/man1/c++.1.gz because associated file /usr/share/man/man1/g++.1.gz (of link group c++) doesn't exist
+141.9 Setting up build-essential (12.9ubuntu3) ...
+141.9 Processing triggers for libc-bin (2.35-0ubuntu3.10) ...
+142.0 qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+142.0 Segmentation fault
+142.0 qemu: uncaught target signal 11 (Segmentation fault) - core dumped
+142.0 Segmentation fault
+142.0 dpkg: error processing package libc-bin (--configure):
+142.0  installed libc-bin package post-installation script subprocess returned error exit status 139
+142.0 Errors were encountered while processing:
+142.0  libc-bin
+142.1 E: Sub-process /usr/bin/dpkg returned an error code (1)
+------
+
+ 2 warnings found (use docker --debug to expand):
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 6)
+ - LegacyKeyValueFormat: "ENV key=value" should be used instead of legacy "ENV key value" format (line 7)
+Dockerfile:12
+--------------------
+  11 |     # 安裝第一批核心工具
+  12 | >>> RUN apt update && apt install -y --no-install-recommends \
+  13 | >>>     build-essential cmake git wget curl \
+  14 | >>>     && rm -rf /var/lib/apt/lists/*
+  15 |     
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c apt update && apt install -y --no-install-recommends     build-essential cmake git wget curl     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+```
+
+
  
