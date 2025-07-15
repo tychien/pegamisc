@@ -153,4 +153,14 @@ SACG - MTK 的代理商 品佳
 
 
 tool chain compiler
- OPENGL, OPENCV OPENCL 
+ OPENGL, OPENCV OPENCL
+
+
+
+
+Dockerfile:~/pegamisc/Dockerfile 
+docker buildx build --platform linux/arm64 -t ros2-raspi-dev:latest --load .
+
+
+
+ 
