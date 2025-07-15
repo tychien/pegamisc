@@ -157,6 +157,8 @@ tool chain compiler
 
 
 
+## 7/15 Docker Buildx
+
 
 Dockerfile:~/pegamisc/Dockerfile 
 docker buildx build --platform linux/arm64 -t ros2-raspi-dev:latest --load .
