@@ -6,26 +6,27 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-# 安裝基本工具與 ROS 2 相依套件
+# --- 超細粒度拆分 apt install 以提高 QEMU 穩定性 ---
+
+# 安裝第一批核心工具
 RUN apt update && apt install -y --no-install-recommends \
-    build-essential \
-    cmake \
-    git \
-    wget \
-    curl \
-    python3-pip \
-    locales \
-    libgoogle-glog-dev \
-    libgflags-dev \
-    libatlas-base-dev \
-    libeigen3-dev \
-    libsuitesparse-dev \
-    libopencv-dev \
-    ocl-icd-opencl-dev \
+    build-essential cmake git wget curl \
     && rm -rf /var/lib/apt/lists/*
 
+# 安裝第二批 Python 相關工具和語言環境
+RUN apt update && apt install -y --no-install-recommends \
+    python3-pip locales \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安裝第三批函式庫依賴
+RUN apt update && apt install -y --no-install-recommends \
+    libgoogle-glog-dev libgflags-dev libatlas-base-dev \
+    libeigen3-dev libsuitesparse-dev libopencv-dev ocl-icd-opencl-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# --- 結束超細粒度拆分 ---
+
 # 加入 ROS 2 軟體來源，才能找到 rosdep、colcon 等工具
-# 修正 UBUNTO_CODENAME -> UBUNTU_CODENAME
 RUN curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null && \
     apt update && apt install -y \
@@ -43,6 +44,9 @@ RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
 WORKDIR /ros_ws/src
 
 # 下載所有程式庫的原始碼
+# Ceres Solver 會在它自己的 third_party 資料夾尋找 Abseil 和 Googletest
+# 因此我們將 Abseil 和 Googletest 下載到 ceres-solver/third_party/ 下
+# 這樣可以避免 Ceres 退回使用系統版本
 RUN git clone https://github.com/ceres-solver/ceres-solver.git && \
     git clone https://github.com/RainerKuemmerle/g2o.git && \
     git clone https://github.com/borglab/gtsam.git && \
@@ -55,10 +59,10 @@ RUN git clone https://github.com/ceres-solver/ceres-solver.git && \
 RUN mkdir ceres-solver/build && \
     cd ceres-solver/build && \
     cmake \
+        -Dabsl_VERSION=20240125 \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_EXAMPLES=OFF \
         -DBUILD_TESTING=OFF \
-        -Dabsl_VERSION=20240125 \
         -G "Unix Makefiles" \
         .. && \
     make -j$(nproc) && \
