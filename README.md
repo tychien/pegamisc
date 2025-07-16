@@ -247,22 +247,24 @@ sudo apt full-upgrade -y
 sudo apt install -y curl gnupg lsb-release
 ```
 
-``` Set apt repo.
+Set apt repo.
+```
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 sudo apt update
 ```
-
-``` install 
+install 
+```  
 sudo apt install -y ros-jazzy-desktop-full
 ```
 
-``` add path to .bashrc
+add path to .bashrc
+``` 
 echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
-
-``` make sure we have colcon to build ros
+make sure we have colcon to build ros 
+``` 
 sudo apt install -y python3-colcon-common-extensions
 ```
 
