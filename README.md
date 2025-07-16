@@ -235,7 +235,7 @@ ERROR: failed to build: failed to solve: process "/bin/sh -c apt update && apt i
 ```
 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes
 ```
-ref: https://github.com/docker/buildx/issues/1169#issuecomment-2014772508
+[ref](https://github.com/docker/buildx/issues/1169#issuecomment-2014772508 "libc-bin Issue")
 
 
  
