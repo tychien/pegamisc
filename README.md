@@ -256,4 +256,14 @@ sudo apt update
 ``` install 
 sudo apt install -y ros-jazzy-desktop-full
 ```
+
+``` add path to .bashrc
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+```
+
+``` make sure we have colcon to build ros
+sudo apt install -y python3-colcon-common-extensions
+```
+
  
