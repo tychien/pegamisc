@@ -289,17 +289,17 @@ sudo /opt/ros/jazzy/lib/mavros/install_geographiclib_datasets.sh
 
     MAVROS 啟動：
     你需要啟動 MAVROS 節點。這是一個基本範例 (假設你的無人機連接在 /dev/ttyACM0，波特率為 57600)：
-    Bash
 
+```Bash
 ros2 launch mavros mavros_node.launch fcu_url:=/dev/ttyACM0:57600
-
+```
 你可能需要根據你的實際連接埠和波特率來修改 fcu_url。
 
 權限： 確保你的用戶擁有訪問串口的權限。你的用戶必須是 dialout 組的成員。
-Bash
+```Bash
 
     sudo usermod -a -G dialout $USER
-
+```
     重要：執行完這一步後，你需要登出並重新登入，或重啟 Raspberry Pi 才能讓更改生效。
 
 9. 測試基本 ROS 2 功能
@@ -307,15 +307,16 @@ Bash
 在兩個不同的終端機中，測試 ROS 2 基本功能：
 
 終端機 1: (發布者)
-Bash
+```Bash
 
 ros2 run rclpy_tutorials talker
-
+```
 終端機 2: (訂閱者)
-Bash
+
+```Bash
 
 ros2 run rclpy_tutorials listener
-
+```
 如果你能看到訊息互傳，表示 ROS 2 環境基本正常。
 
 10. 無人機控制流程 (使用 MAVROS)
@@ -325,47 +326,47 @@ ros2 run rclpy_tutorials listener
 基本控制步驟：
 
     啟動 MAVROS 節點：
-    Bash
+```    Bash
 
 ros2 launch mavros mavros_node.launch fcu_url:=/dev/ttyACM0:57600
-
+```
 確認 MAVROS 節點正常運行並連接到飛控。你可以檢查 MAVROS 的日誌，通常會顯示 FCU: Connected。
 
 設置飛控模式為 OFFBOARD：
 這是關鍵一步。在自動模式下，你才能通過 ROS 訊息控制無人機。你可以使用 MAVROS 提供的服務：
-Bash
+```Bash
 
 ros2 service call /mavros/set_mode mavros_msgs/srv/SetMode "{custom_mode: 'OFFBOARD'}"
-
+```
 發送目標位置訊息 (Setpoints)：
 在進入 OFFBOARD 模式之前，你需要持續發送目標位置或速度訊息，即使無人機還沒有起飛。這是為了防止飛控在沒有收到指令時自動切換回安全模式。你需要編寫一個 ROS 節點來以 10-20Hz 的頻率持續發送這些指令。
-Bash
+```Bash
 
 # 這只是一個 ROS 命令列的範例，用於單次發送。
 # 實際應用中，你需要一個程式碼來重複發送。
 ros2 topic pub /mavros/setpoint_position/local geometry_msgs/msg/PoseStamped "{header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'map'}, pose: {position: {x: 0.0, y: 0.0, z: 0.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" -r 10
-
+```
 ARM (解鎖電機)：
-Bash
+```Bash
 
 ros2 service call /mavros/cmd/arming mavros_msgs/srv/CommandBool "{value: true}"
-
+```
 TAKE_OFF (起飛到 3 米)：
 當無人機 ARM 成功並處於 OFFBOARD 模式後，你就可以將目標 Z 軸位置設定為 3 米。
-Bash
+```Bash
 
 # 再次強調，你需要一個 ROS 節點來持續發送
 # 在你的 ROS 節點中，持續將 Z 軸目標設置為 3.0
 ros2 topic pub /mavros/setpoint_position/local geometry_msgs/msg/PoseStamped "{header: {stamp: {sec: 0, nanosec: 0}, frame_id: 'map'}, pose: {position: {x: 0.0, y: 0.0, z: 3.0}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}" -r 10
-
+```
 無人機應該會緩慢上升到 3 米高度並嘗試保持。
 
 LANDING (降落)：
 要降落，可以將目標 Z 軸高度逐漸設為 0，或者直接使用 MAVROS 的降落服務。
-Bash
+```Bash
 
     ros2 service call /mavros/cmd/land mavros_msgs/srv/CommandTOL "{min_pitch: 0.0, yaw: 0.0, latitude: 0.0, longitude: 0.0, altitude: 0.0}"
-
+```
     或者在你的 ROS 節點中，持續將 Z 軸目標設為 0，無人機將緩慢降落。
 
 重要提示：
