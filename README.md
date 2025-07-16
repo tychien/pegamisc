@@ -231,6 +231,11 @@ Dockerfile:12
 --------------------
 ERROR: failed to build: failed to solve: process "/bin/sh -c apt update && apt install -y --no-install-recommends     build-essential cmake git wget curl     && rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
 ```
+### 解決方法
+```
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes
+```
+ref: https://github.com/docker/buildx/issues/1169#issuecomment-2014772508
 
 
  
