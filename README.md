@@ -238,4 +238,22 @@ docker run --rm --privileged multiarch/qemu-user-static --reset -p yes -c yes
 [ref](https://github.com/docker/buildx/issues/1169#issuecomment-2014772508 "libc-bin Issue")
 
 
+## 7/16
+
+### Install ROS2 to Raspi
+``` install dependencies. 
+sudo apt update
+sudo apt full-upgrade -y
+sudo apt install -y curl gnupg lsb-release
+```
+
+``` Set apt repo.
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu noble main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
+```
+
+``` install 
+sudo apt install -y ros-jazzy-desktop-full
+```
  
