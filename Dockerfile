@@ -41,31 +41,31 @@ RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
 WORKDIR /ros_ws/src
 
 # Download all source libraries
-# Abseil and Googletest are cloned into ceres-solver/third_party/ to ensure Ceres uses these internal versions
 RUN git clone https://github.com/ceres-solver/ceres-solver.git && \
     git clone https://github.com/RainerKuemmerle/g2o.git && \
     git clone https://github.com/borglab/gtsam.git && \
     git clone https://github.com/mavlink/mavros.git && \
-    git clone https://github.com/mavlink/mavlink.git --recursive && \
-    git clone https://github.com/abseil/abseil-cpp.git ceres-solver/third_party/abseil-cpp && \
-    git clone https://github.com/google/googletest.git ceres-solver/third_party/googletest
+    git clone https://github.com/mavlink/mavlink.git --recursive
 
-# Compile Ceres Solver
-RUN mkdir ceres-solver/build && \
-    cd ceres-solver/build && \
-    cmake \
-        -DCMAKE_BUILD_TYPE=Release \
-        -DBUILD_EXAMPLES=OFF \
-        -DBUILD_TESTING=OFF \
-        -DCERES_USE_SYSTEM_ABSL=OFF \
-        -DCERES_USE_SYSTEM_GOOGLETEST=OFF \
-        -Dabsl_VERSION=20240125 \
-        -DABSL_ROOT=/usr/local \
-        -DGOOGLETEST_ROOT=/usr/local \
-        -G "Unix Makefiles" \
-        .. && \
-    make -j4 && \
-    make install
+# --- BEGIN: Ceres-Solver 編譯步驟已被註解掉 ---
+# # We will not compile ceres-solver due to persistent build errors on this platform.
+# # It is not a dependency for MAVROS.
+# RUN git clone https://github.com/abseil/abseil-cpp.git ceres-solver/third_party/abseil-cpp && \
+#     git clone https://github.com/google/googletest.git ceres-solver/third_party/googletest
+# RUN mkdir ceres-solver/build && \
+#     cd ceres-solver/build && \
+#     cmake \
+#         -DCMAKE_BUILD_TYPE=Release \
+#         -DBUILD_EXAMPLES=OFF \
+#         -DBUILD_TESTING=OFF \
+#         -DCERES_USE_SYSTEM_ABSL=OFF \
+#         -DCERES_USE_SYSTEM_GOOGLETEST=OFF \
+#         -Dabsl_VERSION=20240125 \
+#         -G "Unix Makefiles" \
+#         .. && \
+#     make -j4 && \
+#     make install
+# --- END: Ceres-Solver 編譯步驟已被註解掉 ---
 
 # Compile g2o
 RUN mkdir g2o/build && \
