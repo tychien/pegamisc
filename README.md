@@ -389,5 +389,11 @@ LANDING (降落)：
     詳細文檔： 建議參考 MAVROS 的官方文檔和 PX4/ArduPilot 的開發者指南，了解更詳細的 MAVLink 訊息、MAVROS 主題和服務。
 
 ros2 launch mavros apm.launch fcu_url:=/dev/ttyACM0:115200
+
 ros2 service call /mavros/cmd/arming mavros_msgs/srv/CommandBool "{value: true}"
- 
+
+docker image: 
+```
+docker pull tychien/arm64_ubuntu22.04_ros2_ceres_g2o_gtsam_ardupilot:latest
+```
+
