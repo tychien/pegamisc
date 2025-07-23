@@ -56,7 +56,7 @@ RUN wget http://ceres-solver.org/ceres-solver-2.2.0.tar.gz && \
         -DBUILD_TESTING=OFF \
         -G "Unix Makefiles" \
         .. && \
-    make -j4 && \
+    make -j$(nproc) && \
     make install && \
     cd ../.. && \
     rm -rf ceres-solver-2.2.0 ceres-solver-2.2.0.tar.gz
@@ -69,7 +69,7 @@ RUN mkdir g2o/build && \
         -DCMAKE_BUILD_TYPE=Release \
         -G "Unix Makefiles" \
         .. && \
-    make -j4 && \
+    make -j$(nproc) && \
     make install
 
 # Compile GTSAM
@@ -79,7 +79,7 @@ RUN mkdir gtsam/build && \
         -DCMAKE_BUILD_TYPE=Release \
         -G "Unix Makefiles" \
         .. && \
-    make -j4 && \
+    make -j$(nproc) && \
     make install
 
 # Return to the ROS workspace root
