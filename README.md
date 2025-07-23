@@ -397,3 +397,4 @@ docker image:
 docker pull tychien/arm64_ubuntu22.04_ros2_ceres_g2o_gtsam_ardupilot:latest
 ```
 
+[How to embed a Docker image into Yocto’s root filesystem ] (https://blog.savoirfairelinux.com/en-ca/2020/how-to-embed-a-docker-image-into-yoctos-root-filesystem/)
