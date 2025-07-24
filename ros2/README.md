@@ -40,5 +40,9 @@ if it finds the node, then
 ros2 run turtlesim turtle_teleop_key  #then we can take command to pc turtle.
 ```
 
-[turtlesim runs on separate machines]('[Screencast from 2025-07-24 15-23-34.mp4](https://github.com/tychien/pegamisc/blob/main/ros2/Screencast%20from%202025-07-24%2015-23-34.mp4)')
+[turtlesim runs on separate machines]('[Screencast from 2025-07-24 15-23-34.mp4'](https://github.com/tychien/pegamisc/blob/main/ros2/Screencast%20from%202025-07-24%2015-23-34.mp4)')
 
+<video controls width="1920">
+    <source src="(https://github.com/tychien/pegamisc/blob/main/ros2/Screencast%20from%202025-07-24%2015-23-34.mp4)" type="video/mp4">
+    抱歉，您的瀏覽器不支援此影片。
+</video>
