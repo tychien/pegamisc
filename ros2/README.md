@@ -40,5 +40,5 @@ if it finds the node, then
 ros2 run turtlesim turtle_teleop_key  #then we can take command to pc turtle.
 ```
 
-
+![turtlesim runs on separate machines]('Screencast from 2025-07-24 15-23-34.mp4')
 
