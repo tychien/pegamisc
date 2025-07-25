@@ -4,6 +4,7 @@
 
 
 Dockerfile:~/pegamisc/Dockerfile 
+
 docker buildx build --platform linux/arm64 -t ros2-raspi-dev:latest --load .
 
 ## Docker build on x86 simulate arm64 (raspberry pi) 
